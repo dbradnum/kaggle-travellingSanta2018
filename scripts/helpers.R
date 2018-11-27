@@ -64,7 +64,7 @@ getShortestPathBetween = function(df,fromId,toId,method = "nn",reps = 4) {
   
   if (fromId == toId)
   {
-    result = result[-nrow(df),]
+    result = result[-nrow(result),]
   }
   result
   

@@ -99,7 +99,6 @@ for (clusterIndex in 1:(nrow(withinClusterPaths) - 1)) {
     withinClusterPaths$toId[clusterIndex],
     reps = 3)
   
-  
   if (!exists("totalPath")) {
     totalPath = pathWithinCluster
   } else {
@@ -126,6 +125,17 @@ outDir = "output"
 if (!dir.exists(outDir)) {
   dir.create(outDir)
 }
+
+# check submission 
+if (nrow(all) + 1 != (nrow(pathFromStart) )) {
+  stop("Result has wrong number of rows")
+}
+
+if (sum(duplicated(pathFromStart$CityId)) > 1) {
+  stop("Result contains duplicate cities")
+}
+
+
 
 write_csv(pathFromStart %>% select(CityId) %>% rename(Path = CityId),
           file.path(outDir,"result.csv"))
