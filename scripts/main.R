@@ -122,8 +122,13 @@ finalCost = sum(cost$totalCost,na.rm = T)
 
 cat(glue("***** FINAL COST = {finalCost} *****"))
 
+outDir = "output"
+if (!dir.exists(outDir)) {
+  dir.create(outDir)
+}
+
 write_csv(pathFromStart %>% select(CityId) %>% rename(Path = CityId),
-          "output/result.csv")
+          file.path(outDir,"result.csv"))
 
 cost %>% 
   group_by(cluster) %>% 
